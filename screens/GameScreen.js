@@ -44,9 +44,7 @@ function GameScreen({ userNumber, onGameOver }) {
       (direction === 'lower' && currentGuess < userNumber) ||
       (direction === 'greater' && currentGuess > userNumber)
     ) {
-      Alert.alert("Don't lie!", 'You know that this is wrong...', [
-        { text: 'Sorry!', style: 'cancel' },
-      ]);
+      Alert.alert("Don't lie!", 'You know that this is wrong...', [{ text: 'Sorry!', style: 'cancel' }]);
       return;
     }
 
@@ -56,13 +54,9 @@ function GameScreen({ userNumber, onGameOver }) {
       minBoundary = currentGuess + 1;
     }
 
-    const newRndNumber = generateRandomBetween(
-      minBoundary,
-      maxBoundary,
-      currentGuess
-    );
+    const newRndNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
     setCurrentGuess(newRndNumber);
-    setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
+    setGuessRounds(prevGuessRounds => [newRndNumber, ...prevGuessRounds]);
   }
 
   const guessRoundsListLength = guessRounds.length;
@@ -72,18 +66,16 @@ function GameScreen({ userNumber, onGameOver }) {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <InstructionText style={styles.instructionText}>
-          Higher or lower?
-        </InstructionText>
+        <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
-              <Ionicons name="md-remove" size={24} color="white" />
+              <Ionicons name='md-remove' size={24} color='white' />
             </PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
-              <Ionicons name="md-add" size={24} color="white" />
+              <Ionicons name='md-add' size={24} color='white' />
             </PrimaryButton>
           </View>
         </View>
@@ -92,13 +84,10 @@ function GameScreen({ userNumber, onGameOver }) {
         {/* {guessRounds.map(guessRound => <Text key={guessRound}>{guessRound}</Text>)} */}
         <FlatList
           data={guessRounds}
-          renderItem={(itemData) => (
-            <GuessLogItem
-              roundNumber={guessRoundsListLength - itemData.index}
-              guess={itemData.item}
-            />
+          renderItem={itemData => (
+            <GuessLogItem roundNumber={guessRoundsListLength - itemData.index} guess={itemData.item} />
           )}
-          keyExtractor={(item) => item}
+          keyExtractor={item => item}
         />
       </View>
     </View>
@@ -111,6 +100,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+    alignItems: 'center',
   },
   instructionText: {
     marginBottom: 12,
